@@ -6,11 +6,14 @@ import LimitSection from "./Home/LimitSection";
 import CardSection from "./Home/CardSection";
 import Banner from "./Home/Banner";
 import LastSection from "./Home/LastSection";
+import { Helmet } from "react-helmet-async";
+import DynamicTitle from "./DynamicTitle";
 
 const HomePage = () => {
-  let marathonData = useLoaderData()
+  let marathonData = useLoaderData();
   return (
     <div>
+      <DynamicTitle></DynamicTitle>
       <Banner></Banner>
       <Slider></Slider>
       <LimitSection marathons={marathonData}></LimitSection>

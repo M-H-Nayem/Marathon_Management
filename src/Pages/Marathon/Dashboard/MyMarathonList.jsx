@@ -9,6 +9,7 @@ import { Button, Modal } from "react-bootstrap";
 import axios from "axios";
 import Loading from "../../../Components/Loading/Loading";
 import DatePicker from "react-datepicker";
+import { Helmet } from "react-helmet-async";
 
 const MyMarathonList = () => {
   let { user } = use(AuthContext);
@@ -115,7 +116,10 @@ const MyMarathonList = () => {
   }
 
   return (
-    <div className="w-full ">
+    <>
+      <Helmet><title>My Marathon List</title></Helmet>
+      
+      <div className="w-full ">
       {myMarathons.length > 0 ? (
         <div className="h-fit pb-40">
           <div className="overflow-x-auto  w-10/12 mx-auto m-10  p-5 rounded-2xl bg-gray-400 text-black shadow-[0_0px_80px_rgba(255,215,0,0.7)] ">
@@ -346,6 +350,7 @@ const MyMarathonList = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

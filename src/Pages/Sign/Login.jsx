@@ -2,6 +2,8 @@ import React, { use, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../AuthProvider";
+import DynamicTitle from "../../Components/DynamicTitle";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   let [error, setError] = useState("");
@@ -54,6 +56,7 @@ const Login = () => {
   };
   return (
     <>
+      <DynamicTitle></DynamicTitle>
       <div className="card bg-[#1E1E1E] w-full max-w-lg text-white shrink-0 shadow-[0_0px_80px_rgba(255,215,0,0.7)]xl mx-auto rounded-2xl my-10 p-5">
         <h1 className="text-center text-3xl font-bold">Log In</h1>
         <div className="card-body  rounded-2xl">

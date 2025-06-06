@@ -19,6 +19,7 @@ import MarathonDetails from "./Pages/Marathon/MarathonDetails.jsx";
 import MarathonRegi from "./Components/MarathonRegistration/MarathonRegi.jsx";
 import Profile from "./Components/Profile/Profile.jsx";
 import DashHome from "./Pages/Marathon/Dashboard/DashHome.jsx";
+import { HelmetProvider } from "react-helmet-async";
 
 let Router = createBrowserRouter([
   {
@@ -30,7 +31,7 @@ let Router = createBrowserRouter([
         loader: () => fetch("http://localhost:5000/marathons-limit"),
         element: <HomePage></HomePage>,
       },
-      
+
       {
         path: "/register",
         element: <Register></Register>,
@@ -41,23 +42,41 @@ let Router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <PrivateRoute><Profile></Profile></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/marathons",
         loader: () => fetch("http://localhost:5000/marathons"),
         hydrateFallbackElement: <Loading></Loading>,
-        element: <PrivateRoute><Marathons></Marathons></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <Marathons></Marathons>
+          </PrivateRoute>
+        ),
       },
       {
-        path: '/marathon_details/:id',
-        loader: ({ params }) => fetch(`http://localhost:5000/marathons/${params.id}`),
-        element:<PrivateRoute><MarathonDetails></MarathonDetails></PrivateRoute>
+        path: "/marathon_details/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/marathons/${params.id}`),
+        element: (
+          <PrivateRoute>
+            <MarathonDetails></MarathonDetails>
+          </PrivateRoute>
+        ),
       },
       {
-        path: '/register_marathon/:id',
-        loader: ({ params }) => fetch(`http://localhost:5000/marathons/${params.id}`),
-        element:<PrivateRoute><MarathonRegi></MarathonRegi></PrivateRoute>
+        path: "/register_marathon/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/marathons/${params.id}`),
+        element: (
+          <PrivateRoute>
+            <MarathonRegi></MarathonRegi>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard",
@@ -99,9 +118,11 @@ let Router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <AuthProvider>
-      <RouterProvider router={Router}></RouterProvider>
-    </AuthProvider>
-  </StrictMode>
+  <>
+    <HelmetProvider>
+      <AuthProvider>
+        <RouterProvider router={Router}></RouterProvider>
+      </AuthProvider>
+    </HelmetProvider>
+  </>
 );

@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../AuthProvider";
 import { useNavigate } from "react-router";
+import { Helmet } from "react-helmet-async";
 
 const AddMarathon = () => {
   let { user } = use(AuthContext);
@@ -40,12 +41,16 @@ const AddMarathon = () => {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Add Marathon</title>
+    </Helmet>
     <div className="w-7/12 mx-auto">
       <form
         onSubmit={handleAddMarathon}
-        className="w-full mx-auto p-6 bg-gray-800 text-white rounded-3xl shadow-2xl space-y-4"
+        className="w-full mx-auto p-6 bg-amber-400 text-white rounded-3xl text-2xl  space-y-4 shadow-[0_0px_90px_rgba(255,0,0,0.9)]"
       >
-        <h2 className="text-2xl font-bold mb-4 text-center">Create Marathon</h2>
+        <h2 className="text-4xl font-bold mb-4 text-center">Create Marathon</h2>
 
         <label className="block mb-1 font-semibold">Marathon Title</label>
         <input
@@ -73,7 +78,7 @@ const AddMarathon = () => {
               minDate={todayDate}
             />
             {!regiStartDate ? (
-              <p className="text-[12px] text-red-600">
+              <p className="text-[15px] text-black">
                 Firstly select registration start date
               </p>
             ) : (
@@ -96,7 +101,7 @@ const AddMarathon = () => {
               disabled={!regiStartDate}
             />
             {!regiEndDate ? (
-              <p className="text-[12px] text-red-600">
+              <p className="text-[15px] text-black">
                 Then select registration End date{" "}
               </p>
             ) : (
@@ -136,7 +141,7 @@ const AddMarathon = () => {
           <label className="block mb-1 font-semibold">Running Distance</label>
           <select
             name="distance"
-            className="w-full p-2 border rounded bg-gray-800"
+            className="w-full p-2 border rounded bg-amber-400"
             required
           >
             <option value="">Select Distance</option>
@@ -162,7 +167,7 @@ const AddMarathon = () => {
           <input
             type="text"
             name="image"
-            className="w-full p-2 border rounded bg-gray-800"
+            className="w-full p-2 border rounded bg-amber-400"
             required
           />
         </div>
@@ -172,7 +177,7 @@ const AddMarathon = () => {
             type="text"
             name="email"
             value={user.email}
-            className="w-full p-2 border rounded bg-gray-800"
+            className="w-full p-2 border rounded bg-amber-400"
             required
           />
         </div>
@@ -188,6 +193,7 @@ const AddMarathon = () => {
         </label>
       </form>
     </div>
+    </>
   );
 };
 

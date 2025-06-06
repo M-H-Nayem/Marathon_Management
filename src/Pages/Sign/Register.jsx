@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../AuthProvider";
+import DynamicTitle from "../../Components/DynamicTitle";
 
 const Register = () => {
   let [nameError, setNameError] = useState("");
@@ -74,7 +75,9 @@ const Register = () => {
 
   //   console.log(user);
   return (
-    <div className="card bg-[#1E1E1E] text-white w-full max-w-lg shrink-0 shadow-[0_0px_80px_rgba(255,215,0,0.7)]xl mx-auto rounded-2xl my-10 p-5">
+    <>
+      <DynamicTitle></DynamicTitle>
+      <div className="card bg-[#1E1E1E] text-white w-full max-w-lg shrink-0 shadow-[0_0px_80px_rgba(255,215,0,0.7)]xl mx-auto rounded-2xl my-10 p-5">
       <h1 className="text-center text-3xl font-bold">Please Register</h1>
       <div className="card-body  rounded-2xl">
         <form onSubmit={handleSubmit} className="fieldset">
@@ -160,7 +163,7 @@ const Register = () => {
           {/* <ToastContainer></ToastContainer> */}
         </form>
       </div>
-    </div>
+    </div></>
   );
 };
 
