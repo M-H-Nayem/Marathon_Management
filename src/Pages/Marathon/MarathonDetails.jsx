@@ -1,9 +1,9 @@
 import React from "react";
 import Countdown from "react-countdown";
-import { Link, useLoaderData } from "react-router";
+import { Link, useLoaderData,  } from "react-router";
 
-const marathonDataDetails = () => {
-  let marathonData = useLoaderData();
+const MarathonDataDetails = () => {
+  let marathonData = useLoaderData() 
   const targetDate = new Date(marathonData.marathon_start);
   const regiStartDate = new Date(marathonData.regi_start);
   const regiEndDate = new Date(marathonData.regi_start);
@@ -16,13 +16,13 @@ const marathonDataDetails = () => {
   const start = toDateOnly(regiStartDate);
   const end = toDateOnly(regiEndDate);
 
-  let content=<></>;
+  let content;
 
-  if (now < start) {
+  if (now < start && now < end) {
     content = (
       <button className="btn bg-blue-500 text-white border-none font-bold">⏳ Registration hasn't started yet.</button>
     );
-  } else if (now > end) {
+  } else if (now > start && now < end ) {
     content = <button className="btn bg-blue-500 text-white border-none font-bold">❌ Registration has expired.</button>;
   } else {
     content = (
@@ -50,7 +50,7 @@ const marathonDataDetails = () => {
         <div className="card bg-gray-300 w-10/12 mx-auto shadow-lg rounded-2xl">
           <figure>
             <img
-              className="w-full h-[500px]"
+              className="w-full bg-amber-300 h-[500px]"
               src={marathonData.image}
               alt="marathonData Image"
             />
@@ -92,4 +92,4 @@ const marathonDataDetails = () => {
   );
 };
 
-export default marathonDataDetails;
+export default MarathonDataDetails;

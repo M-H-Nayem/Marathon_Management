@@ -4,26 +4,23 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../AuthProvider";
+import { useNavigate } from "react-router";
 
 const AddMarathon = () => {
   let { user } = use(AuthContext);
-  //   const [formDates, setFormDates] = useState();
+  let navigate = useNavigate()
   const [todayDate, setTodayDate] = useState(new Date());
   const [regiStartDate, setRegiStartDate] = useState();
   const [regiEndDate, setRegiEndDate] = useState();
-    const [marStartDate, setMarStartDate] = useState();
-    
+  const [marStartDate, setMarStartDate] = useState();
+
   const [totalRegi, setTotalRegi] = useState(0);
- 
 
   const handleAddMarathon = (e) => {
     e.preventDefault();
     let form = e.target;
     let formData = new FormData(form);
     let formDataObj = Object.fromEntries(formData.entries());
-
-
- 
 
     axios
       .post("http://localhost:5000/marathons", formDataObj)
@@ -36,19 +33,17 @@ const AddMarathon = () => {
             showConfirmButton: false,
             timer: 1500,
           });
+          navigate('/dashboard/my-marathons')
         }
       })
       .catch((err) => {});
   };
 
-  //   console.log(formDates);
-  //   console.log(formData);
-
   return (
-    <div>
+    <div className="w-7/12 mx-auto">
       <form
         onSubmit={handleAddMarathon}
-        className="max-w-2xl mx-auto p-6 bg-gray-800 text-white rounded shadow space-y-4"
+        className="w-full mx-auto p-6 bg-gray-800 text-white rounded-3xl shadow-2xl space-y-4"
       >
         <h2 className="text-2xl font-bold mb-4 text-center">Create Marathon</h2>
 
@@ -61,19 +56,17 @@ const AddMarathon = () => {
           required
         />
 
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="flex-1">
+        <div className="flex flex-col md:flex-row gap-4  md:justify-between">
+          <div className="w-full ">
             <label className="block mb-1 font-semibold">
               Registration Start
             </label>
             <DatePicker
-              // selected={formDates?.registrationStart}
               selected={regiStartDate}
               onChange={(date) => {
-                //   handleDateChange("registrationStart", date)
                 setRegiStartDate(date);
               }}
-              className="w-full p-2 border rounded"
+              className=" w-full p-2 border rounded"
               name="regi_start"
               placeholderText="Start Date"
               dateFormat="yyyy-MM-dd"
@@ -81,14 +74,14 @@ const AddMarathon = () => {
             />
             {!regiStartDate ? (
               <p className="text-[12px] text-red-600">
-                Firstly select resistration start date
+                Firstly select registration start date
               </p>
             ) : (
               ""
             )}
           </div>
 
-          <div className="flex-1">
+          <div className="w-full ">
             <label className="block mb-1 font-semibold">
               Registration End{" "}
             </label>
@@ -104,7 +97,7 @@ const AddMarathon = () => {
             />
             {!regiEndDate ? (
               <p className="text-[12px] text-red-600">
-                Then select resistration End date{" "}
+                Then select registration End date{" "}
               </p>
             ) : (
               ""
@@ -112,7 +105,7 @@ const AddMarathon = () => {
           </div>
         </div>
 
-        <div>
+        <div className="w-full">
           <label className="block mb-1 font-semibold">
             Marathon Start Date
           </label>
@@ -127,14 +120,17 @@ const AddMarathon = () => {
             disabled={!regiEndDate}
           />
         </div>
-
-        <input
-          type="text"
-          name="location"
-          placeholder="Location"
-          className="w-full p-2 border rounded"
-          required
-        />
+        
+        <div className="">
+          <label className="block mb-1 font-semibold">Location</label>
+          <input
+            type="text"
+            name="location"
+            placeholder="Location"
+            className="w-full p-2 border rounded"
+            required
+          />
+        </div>
 
         <div>
           <label className="block mb-1 font-semibold">Running Distance</label>
@@ -149,14 +145,17 @@ const AddMarathon = () => {
             <option value="3k">3k</option>
           </select>
         </div>
+        <div className="">
+          <label className="block mb-1 font-semibold">Description</label>
 
-        <textarea
-          name="description"
-          placeholder="Description"
-          rows={4}
-          className="w-full p-2 border rounded"
-          required
-        ></textarea>
+          <textarea
+            name="description"
+            placeholder="Description"
+            rows={4}
+            className="w-full p-2 border rounded"
+            required
+          ></textarea>
+        </div>
 
         <div>
           <label className="block mb-1 font-semibold">Upload Image Link</label>

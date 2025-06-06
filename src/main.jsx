@@ -17,6 +17,8 @@ import Loading from "./Components/Loading/Loading.jsx";
 import Error from "./Components/Error/Error.jsx";
 import MarathonDetails from "./Pages/Marathon/MarathonDetails.jsx";
 import MarathonRegi from "./Components/MarathonRegistration/MarathonRegi.jsx";
+import Profile from "./Components/Profile/Profile.jsx";
+import DashHome from "./Pages/Marathon/Dashboard/DashHome.jsx";
 
 let Router = createBrowserRouter([
   {
@@ -25,12 +27,10 @@ let Router = createBrowserRouter([
     children: [
       {
         index: true,
+        loader: () => fetch("http://localhost:5000/marathons-limit"),
         element: <HomePage></HomePage>,
       },
-      {
-        path: "app",
-        element: <p>apppppp</p>,
-      },
+      
       {
         path: "/register",
         element: <Register></Register>,
@@ -40,10 +40,14 @@ let Router = createBrowserRouter([
         element: <Login></Login>,
       },
       {
+        path: "/profile",
+        element: <PrivateRoute><Profile></Profile></PrivateRoute>,
+      },
+      {
         path: "/marathons",
         loader: () => fetch("http://localhost:5000/marathons"),
         hydrateFallbackElement: <Loading></Loading>,
-        element: <Marathons></Marathons>,
+        element: <PrivateRoute><Marathons></Marathons></PrivateRoute>,
       },
       {
         path: '/marathon_details/:id',
@@ -65,20 +69,23 @@ let Router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <>hello dash</>,
+            // element: <AddMarathon></AddMarathon>,
+            element: <DashHome></DashHome>,
           },
           {
             path: "/dashboard/addmarathon",
             element: <AddMarathon></AddMarathon>,
           },
           {
-            path: "/dashboard/mymarathons",
-            loader: () => fetch("http://localhost:5000/marathons"),
-            hydrateFallbackElement: <Loading></Loading>,
+            path: "/dashboard/my-marathons",
+            // loader: ({params}) => fetch(`http://localhost:5000/my-marathons/${params.email}`),
+            // hydrateFallbackElement: <Loading></Loading>,
             element: <MyMarathonList></MyMarathonList>,
           },
           {
             path: "/dashboard/myapply",
+            // loader: ({params}) => fetch(`http://localhost:5000/my-marathons-apply/${params.email}`),
+            // hydrateFallbackElement: <Loading></Loading>,
             element: <MyApplyList></MyApplyList>,
           },
         ],
