@@ -15,14 +15,20 @@ const MarathonDataDetails = () => {
   const today = new Date();
 
   useEffect(() => {
-    axios(`http://localhost:5000/marathons/application/${marathonData._id}`)
+    axios(
+      `https://marathon-server-side.vercel.app/marathons/application/${marathonData._id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${user?.accessToken}`,
+        },
+      }
+    )
       .then((res) => {
         console.log(res.data);
         setRegisteredList(res.data);
       })
       .catch((err) => {});
-  }, [marathonData._id]);
-
+  }, [marathonData._id,user]);
 
   marathonData.totalRegiCount = registeredList.length;
 

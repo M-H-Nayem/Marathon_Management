@@ -24,7 +24,7 @@ const AddMarathon = () => {
     let formDataObj = Object.fromEntries(formData.entries());
 
     axios
-      .post("http://localhost:5000/marathons", formDataObj)
+      .post("https://marathon-server-side.vercel.app/marathons", formDataObj)
       .then((res) => {
         console.log(res.data);
         if (res.data.insertedId) {

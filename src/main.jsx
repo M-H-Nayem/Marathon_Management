@@ -28,7 +28,7 @@ let Router = createBrowserRouter([
     children: [
       {
         index: true,
-        // loader: () => fetch("http://localhost:5000/marathons-limit"),
+        // loader: () => fetch("https://marathon-server-side.vercel.app/marathons-limit"),
         element: <HomePage></HomePage>,
       },
 
@@ -50,7 +50,7 @@ let Router = createBrowserRouter([
       },
       {
         path: "/marathons",
-        // loader: () =>fetch("http://localhost:5000/marathons"),
+        // loader: () =>fetch("https://marathon-server-side.vercel.app/marathons"),
         // hydrateFallbackElement: <Loading></Loading>,
         element: (
           <PrivateRoute>
@@ -61,7 +61,9 @@ let Router = createBrowserRouter([
       {
         path: "/marathon_details/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/marathons/${params.id}`),
+          fetch(
+            `https://marathon-server-side.vercel.app/marathons/${params.id}`
+          ),
         element: (
           <PrivateRoute>
             <MarathonDetails></MarathonDetails>
@@ -71,7 +73,9 @@ let Router = createBrowserRouter([
       {
         path: "/register_marathon/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/marathons/${params.id}`),
+          fetch(
+            `https://marathon-server-side.vercel.app/marathons/${params.id}`
+          ),
         element: (
           <PrivateRoute>
             <MarathonRegi></MarathonRegi>

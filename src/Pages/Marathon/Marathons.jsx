@@ -6,17 +6,20 @@ import Loading from "../../Components/Loading/Loading";
 import { AuthContext } from "../../AuthProvider";
 
 const Marathons = () => {
-  let {user}= use(AuthContext)
+  let { user } = use(AuthContext);
   let [marathons, setMarathons] = useState([]);
   let [sort, setSort] = useState("");
   let [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios(`http://localhost:5000/marathons?email=${user.email}&sort=${sort}`, {
-      headers: {
-        Authorization:`Bearer ${user.accessToken}`
+    axios(
+      `https://marathon-server-side.vercel.app/marathons?email=${user.email}&sort=${sort}`,
+      {
+        headers: {
+          Authorization: `Bearer ${user.accessToken}`,
+        },
       }
-    })
+    )
       .then((res) => {
         setMarathons(res.data);
         setLoading(false);

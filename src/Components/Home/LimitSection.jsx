@@ -9,7 +9,7 @@ const LimitSection = () => {
   let [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/marathons-limit")
+    fetch("https://marathon-server-side.vercel.app/marathons-limit")
       .then((res) => res.json())
       .then((data) => {
         setMarathons(data);
@@ -18,7 +18,7 @@ const LimitSection = () => {
   }, []);
 
   if (loading) {
-    return <Loading></Loading>
+    return <Loading></Loading>;
   }
 
   return (

@@ -21,16 +21,18 @@ const MyMarathonList = () => {
   let [selectedData, setSelectedData] = useState(null);
 
   useEffect(() => {
-    axios(`http://localhost:5000/my-marathons?email=${user.email}`
-      , {
-      headers: {
-        Authorization:`Bearer ${user?.accessToken}`
+    axios(
+      `https://marathon-server-side.vercel.app/my-marathons?email=${user.email}`,
+      {
+        headers: {
+          Authorization: `Bearer ${user?.accessToken}`,
+        },
       }
-    })
+    )
       .then((res) => {
         // console.log(res.data);
         setMyMarathons(res.data);
-        setLoading(false); 
+        setLoading(false);
       })
       .catch((err) => {
         // console.log(err);
@@ -48,7 +50,7 @@ const MyMarathonList = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/marathons/${id}`, {
+        fetch(`https://marathon-server-side.vercel.app/marathons/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -76,7 +78,7 @@ const MyMarathonList = () => {
   useEffect(() => {
     if (selectId) {
       setSelectedData(null);
-      axios(`http://localhost:5000/marathons/${selectId}`)
+      axios(`https://marathon-server-side.vercel.app/marathons/${selectId}`)
         .then((res) => {
           setSelectedData(res.data);
           setSelectId(null);
@@ -97,7 +99,10 @@ const MyMarathonList = () => {
     console.log(formDateObj);
 
     axios
-      .put(`http://localhost:5000/marathons/${id}`, formDateObj)
+      .put(
+        `https://marathon-server-side.vercel.app/marathons/${id}`,
+        formDateObj
+      )
       .then((res) => {
         console.log(res.data);
         if (res.data.modifiedCount) {

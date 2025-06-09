@@ -15,10 +15,13 @@ const MarathonRegi = () => {
     let formData = new FormData(form);
     let { ...formObj } = Object.fromEntries(formData.entries());
     let formDataObj = { mainId: _id, ...formObj };
-    formDataObj.regiCount=[]
+    formDataObj.regiCount = [];
     console.log(formDataObj);
     axios
-      .post("http://localhost:5000/marathons-apply", formDataObj)
+      .post(
+        "https://marathon-server-side.vercel.app/marathons-apply",
+        formDataObj
+      )
       .then((res) => {
         console.log(res.data);
         if (res.data.insertedId) {
@@ -123,8 +126,7 @@ const MarathonRegi = () => {
         >
           Register
         </button>
-        <label className="block mb-1 font-semibold">
-        </label>
+        <label className="block mb-1 font-semibold"></label>
       </form>
     </div>
   );
