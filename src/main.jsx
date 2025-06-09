@@ -28,7 +28,7 @@ let Router = createBrowserRouter([
     children: [
       {
         index: true,
-        loader: () => fetch("http://localhost:5000/marathons-limit"),
+        // loader: () => fetch("http://localhost:5000/marathons-limit"),
         element: <HomePage></HomePage>,
       },
 
@@ -50,8 +50,8 @@ let Router = createBrowserRouter([
       },
       {
         path: "/marathons",
-        loader: () => fetch("http://localhost:5000/marathons"),
-        hydrateFallbackElement: <Loading></Loading>,
+        // loader: () =>fetch("http://localhost:5000/marathons"),
+        // hydrateFallbackElement: <Loading></Loading>,
         element: (
           <PrivateRoute>
             <Marathons></Marathons>
@@ -88,7 +88,6 @@ let Router = createBrowserRouter([
         children: [
           {
             index: true,
-            // element: <AddMarathon></AddMarathon>,
             element: <DashHome></DashHome>,
           },
           {
@@ -97,14 +96,12 @@ let Router = createBrowserRouter([
           },
           {
             path: "/dashboard/my-marathons",
-            // loader: ({params}) => fetch(`http://localhost:5000/my-marathons/${params.email}`),
-            // hydrateFallbackElement: <Loading></Loading>,
+
             element: <MyMarathonList></MyMarathonList>,
           },
           {
             path: "/dashboard/myapply",
-            // loader: ({params}) => fetch(`http://localhost:5000/my-marathons-apply/${params.email}`),
-            // hydrateFallbackElement: <Loading></Loading>,
+
             element: <MyApplyList></MyApplyList>,
           },
         ],

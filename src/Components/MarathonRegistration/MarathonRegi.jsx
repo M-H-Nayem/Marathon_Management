@@ -5,18 +5,18 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 const MarathonRegi = () => {
-  let navigate = useNavigate()
+  let navigate = useNavigate();
   let { user } = use(AuthContext);
-  let { title, marathon_start,_id } = useLoaderData();
+  let { title, marathon_start, _id } = useLoaderData();
 
   let handleMarathonApply = (e) => {
     e.preventDefault();
     let form = e.target;
     let formData = new FormData(form);
-    let formObj = Object.fromEntries(formData.entries());
-    let formDataObj = {mainId:_id,...formObj}
+    let { ...formObj } = Object.fromEntries(formData.entries());
+    let formDataObj = { mainId: _id, ...formObj };
+    formDataObj.regiCount=[]
     console.log(formDataObj);
-    // console.log("applied");
     axios
       .post("http://localhost:5000/marathons-apply", formDataObj)
       .then((res) => {
@@ -28,7 +28,7 @@ const MarathonRegi = () => {
             showConfirmButton: false,
             timer: 1500,
           });
-          navigate(`/dashboard/myapply`)
+          navigate(`/dashboard/myapply`);
         }
       })
       .catch((err) => console.log(err));
@@ -124,7 +124,6 @@ const MarathonRegi = () => {
           Register
         </button>
         <label className="block mb-1 font-semibold">
-          Total Registration = {0}
         </label>
       </form>
     </div>

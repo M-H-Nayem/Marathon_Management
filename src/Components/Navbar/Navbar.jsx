@@ -1,6 +1,6 @@
 import React, { use } from "react";
 import { AuthContext } from "../../AuthProvider";
-import { Link } from "react-router";
+import { NavLink, Link } from "react-router";
 import { FaUserAlt } from "react-icons/fa";
 
 const Navbar = () => {
@@ -59,25 +59,37 @@ const Navbar = () => {
               <div>
                 {user ? (
                   <div className="flex gap-2 ">
-                    <Link
-                      className="btn border-none bg-amber-400 text-white font-semibold rounded-xl "
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive
+                          ? "btn active-link text-black  border-none bg-blue-400"
+                          : "btn border-none bg-amber-400  text-white "
+                      }
                       to={"/"}
                     >
                       Home
-                    </Link>
-                    <Link
-                      className="btn border-none bg-amber-400 text-white font-semibold rounded-xl "
+                    </NavLink>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive
+                          ? "btn active-link text-black  border-none bg-blue-400"
+                          : "btn border-none bg-amber-400  text-white "
+                      }
                       to={"/marathons"}
                     >
                       Marathons
-                    </Link>
-                    <Link
-                      className="btn border-none bg-amber-400 text-white font-semibold rounded-xl "
+                    </NavLink>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive
+                          ? "btn active-link text-black  border-none bg-blue-400"
+                          : "btn border-none bg-amber-400  text-white "
+                      }
                       to={"/dashboard"}
                     >
                       Dashboard
-                    </Link>
-                    <Link to={"/profile"}>
+                    </NavLink>
+                    <NavLink to={"/profile"}>
                       {user ? (
                         <img
                           className="rounded-full w-10 h-10"
@@ -93,50 +105,70 @@ const Navbar = () => {
                           className="mt-1"
                         />
                       )}
-                    </Link>
+                    </NavLink>
                     <button
-                      className="btn border-none bg-amber-400 text-white font-semibold rounded-xl "
+                      className="btn border-none bg-amber-400  text-white "
                       onClick={handleLogout}
                     >
                       Logout
                     </button>
-                    <Link
-                      className="btn border-none bg-amber-400 text-white font-semibold rounded-xl"
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive
+                          ? "btn active-link text-black  border-none bg-blue-400"
+                          : "btn border-none bg-amber-400  text-white "
+                      }
                       to={"/register"}
                     >
                       Register
-                    </Link>
+                    </NavLink>
                   </div>
                 ) : (
                   <div className="flex gap-3">
-                    <Link
-                      className="btn border-none bg-amber-400 text-white font-semibold rounded-xl"
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive
+                          ? "btn active-link text-black  border-none bg-blue-400"
+                          : "btn border-none bg-amber-400  text-white "
+                      }
                       to={"/"}
                     >
                       Home
-                    </Link>
-                    {/* <Link className="btn" to={"/dashboard"}>
+                    </NavLink>
+                    {/* <NavLink className="btn" to={"/dashboard"}>
                     Dashboard
-                  </Link> */}
-                    <Link
-                      className="btn border-none bg-amber-400 text-white font-semibold rounded-xl"
+                  </NavLink> */}
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive
+                          ? "btn active-link text-black  border-none bg-blue-400"
+                          : "btn border-none bg-amber-400  text-white "
+                      }
                       to={"/marathons"}
                     >
                       Marathons
-                    </Link>
-                    {/* <Link to={`/profile`}></Link> */}
-                    <Link
-                      className="btn border-none bg-amber-400 text-white font-semibold rounded-xl"
+                    </NavLink>
+                    {/* <NavLink to={`/profile`}></NavLink> */}
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive
+                          ? "btn active-link text-black  border-none bg-blue-400"
+                          : "btn border-none bg-amber-400  text-white "
+                      }
                       to={"/login"}
                     >
                       Log In
-                    </Link>
-                    <Link
-                      className="btn border-none bg-amber-400 text-white font-semibold rounded-xl"
+                    </NavLink>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive
+                          ? "btn active-link text-black  border-none bg-blue-400"
+                          : "btn border-none bg-amber-400  text-white "
+                      }
                       to={"/register"}
                     >
                       Register
-                    </Link>
+                    </NavLink>
                   </div>
                 )}
               </div>

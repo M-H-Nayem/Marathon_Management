@@ -16,7 +16,9 @@ const HomePage = () => {
       <DynamicTitle></DynamicTitle>
       <Banner></Banner>
       <Slider></Slider>
-      <LimitSection marathons={marathonData}></LimitSection>
+      <LimitSection
+        marathons={marathonData}
+      ></LimitSection>
       <CardSection></CardSection>
       <LastSection></LastSection>
     </div>

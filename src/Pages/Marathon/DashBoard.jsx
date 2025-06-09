@@ -15,7 +15,8 @@ const DashBoard = () => {
           <NavLink className={({ isActive }) =>
             isActive ? "btn active-link text-black text-xl border-none bg-blue-400" : "btn border-none bg-amber-400  text-white text-xl"} to={`/dashboard/my-marathons`} >My Marathon List</NavLink>
           <NavLink className={({ isActive }) =>
-            isActive ? "btn active-link text-black text-xl border-none bg-blue-400" : "btn border-none bg-amber-400  text-white text-xl"} to={`/dashboard/myapply`}>My Apply List</NavLink>
+            isActive ? "btn active-link text-black text-xl border-none bg-blue-400" :
+              "btn border-none bg-amber-400  text-white text-xl"} to={`/dashboard/myapply`}>My Apply List</NavLink>
          </div>
       </div>
       <div className="flex-4">

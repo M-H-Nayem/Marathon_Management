@@ -1,13 +1,32 @@
-import React from "react";
+import React, { use, useEffect, useState } from "react";
 import Countdown from "react-countdown";
 import { Link, useLoaderData } from "react-router";
+import { AuthContext } from "../../AuthProvider";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const MarathonDataDetails = () => {
+  let { user } = use(AuthContext);
   let marathonData = useLoaderData();
+  let [registeredList, setRegisteredList] = useState([]);
   const targetDate = new Date(marathonData.marathon_start);
   const regiStartDate = new Date(marathonData.regi_start);
   const regiEndDate = new Date(marathonData.regi_start);
   const today = new Date();
+
+  useEffect(() => {
+    axios(`http://localhost:5000/marathons/application/${marathonData._id}`)
+      .then((res) => {
+        console.log(res.data);
+        setRegisteredList(res.data);
+      })
+      .catch((err) => {});
+  }, [marathonData._id]);
+
+
+  marathonData.totalRegiCount = registeredList.length;
+
+  console.log(marathonData);
 
   const toDateOnly = (date) =>
     new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -18,7 +37,13 @@ const MarathonDataDetails = () => {
 
   let content;
 
-  if (now < start && now < end) {
+  if (user.email === marathonData.email) {
+    content = (
+      <button className="btn bg-blue-500 text-white border-none font-bold">
+        ⏳ You can't Apply to your own Marathon
+      </button>
+    );
+  } else if (now < start && now < end) {
     content = (
       <button className="btn bg-blue-500 text-white border-none font-bold">
         ⏳ Registration hasn't started yet.
@@ -64,7 +89,6 @@ const MarathonDataDetails = () => {
             />
           </figure>
           <div className="card-body">
-            ,
             <div className="flex items-center">
               <h2 className="card-title text-[40px] h-15 font-bold bg-gradient-to-tl from-blue-600 to-green-800 bg-clip-text text-transparent">
                 {marathonData.title}
@@ -94,10 +118,9 @@ const MarathonDataDetails = () => {
             </div>
             <hr />
             <div className="card-actions flex items-center justify-between">
-              {/* <div className="text-black font-bold">
-                <h2>🚀 Countdown to Marathon Start</h2>
-                <Countdown date={targetDate} renderer={renderer} />
-              </div> */}
+              <div className="text-2xl text-black">
+                Total Application for this : {registeredList.length}
+              </div>
               <div>{content}</div>
             </div>
           </div>

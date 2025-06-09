@@ -41,7 +41,7 @@ const provider = new GoogleAuthProvider();
     let unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
         setLoading(false);
-        // console.log(currentUser);
+        console.log(currentUser?.accessToken);
     });
     return () => {
       unSubscribe();
