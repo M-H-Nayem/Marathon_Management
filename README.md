@@ -4,15 +4,23 @@ A comprehensive full-stack web application for organizing, exploring, and partic
 🚀 Live Demo
 [https://marathon-management-event.surge.sh](https://marathon-management-event.surge.sh)
 
-📸 Screenshots
 
-A glimpse of the homepage, highlighting featured marathons.
+## 📸 Screenshots
+
+### 🖥️ Project UI Previews
+
+![A glimpse of the homepage, highlighting featured marathons](https://i.ibb.co/LhHPd6V9/Screenshot-2025-06-25-113037.png)
+<br/>
+
+![Detailed view of a specific marathon ](https://i.ibb.co/WvkpHKG6/Screenshot-2025-06-25-113103.png)
+<br/>
+
+![Dashboard](https://i.ibb.co/n8gBpXbp/Screenshot-2025-06-25-113114.png)
+<br/>
+
+![Applied Marathon](https://i.ibb.co/LhCWkr6R/Screenshot-2025-06-25-113133.png)
 
 
-Detailed view of a specific marathon event.
-
-
-An example of the user dashboard or the marathon application form.
 
 🌟 About the Project
 This project is a robust Marathon Management System designed to streamline the experience for both marathon organizers and participants. It offers a seamless platform where event organizers can easily add and manage marathon events, while participants can effortlessly browse, apply for, and keep track of their chosen marathons.
