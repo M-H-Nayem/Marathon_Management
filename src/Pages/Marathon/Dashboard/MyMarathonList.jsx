@@ -89,7 +89,7 @@ const MyMarathonList = () => {
     }
   }, [selectId]);
 
-  console.log(selectId, selectedData);
+  // console.log(selectId, selectedData);
 
   const handleUpdateMarathon = (e, id) => {
     e.preventDefault();

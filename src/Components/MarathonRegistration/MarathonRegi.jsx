@@ -3,6 +3,7 @@ import { AuthContext } from "../../AuthProvider";
 import { useLoaderData, useNavigate } from "react-router";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const MarathonRegi = () => {
   let navigate = useNavigate();
@@ -38,6 +39,9 @@ const MarathonRegi = () => {
   };
 
   return (
+
+<>
+<Helmet><title>Marathon Registration</title></Helmet>
     <div className="my-10">
       <form
         onSubmit={handleMarathonApply}
@@ -129,6 +133,8 @@ const MarathonRegi = () => {
         <label className="block mb-1 font-semibold"></label>
       </form>
     </div>
+</>
+
   );
 };
 

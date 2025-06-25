@@ -26,7 +26,7 @@ const AddMarathon = () => {
     axios
       .post("https://marathon-server-side.vercel.app/marathons", formDataObj)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.insertedId) {
           Swal.fire({
             icon: "success",

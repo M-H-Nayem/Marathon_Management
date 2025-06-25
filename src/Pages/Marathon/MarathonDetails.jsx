@@ -4,6 +4,7 @@ import { Link, useLoaderData } from "react-router";
 import { AuthContext } from "../../AuthProvider";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 
 const MarathonDataDetails = () => {
   let { user } = use(AuthContext);
@@ -28,7 +29,7 @@ const MarathonDataDetails = () => {
         setRegisteredList(res.data);
       })
       .catch((err) => {});
-  }, [marathonData._id,user]);
+  }, [marathonData._id, user]);
 
   marathonData.totalRegiCount = registeredList.length;
 
@@ -84,55 +85,60 @@ const MarathonDataDetails = () => {
   };
 
   return (
-    <div className="my-10">
-      <div className=" w-8/12 mx-auto">
-        <div className="card bg-gray-300 w-10/12 mx-auto shadow-lg rounded-2xl">
-          <figure>
-            <img
-              className="w-full bg-amber-300 h-[500px]"
-              src={marathonData.image}
-              alt="marathonData Image"
-            />
-          </figure>
-          <div className="card-body">
-            <div className="flex items-center">
-              <h2 className="card-title text-[40px] h-15 font-bold bg-gradient-to-tl from-blue-600 to-green-800 bg-clip-text text-transparent">
-                {marathonData.title}
-              </h2>
-              <p className="text-2xl flex justify-end font-bold text-black">
-                Location- {marathonData.location}
-              </p>
-            </div>
-            <p className="text-2xl text-black">{marathonData.description}</p>
-            <div className="flex  gap-5 w-full justify-between">
-              <p className="w-fit text-green-600 text-xl   ">
-                Regi-Start :{marathonData.regi_start}
-              </p>
-              <p className="w-fit text-xl text-red-600 flex justify-end   ">
-                Regi-End :{marathonData.regi_end}
-              </p>
-            </div>
-            <hr />
-            <div className="flex items-center">
-              <p className=" text-2xl text-green-600">
-                Marathon Start date - {marathonData.marathon_start}
-              </p>
-              <div className="text-black font-bold">
-                <h2>🚀 Countdown to Marathon Start</h2>
-                <Countdown date={targetDate} renderer={renderer} />
+    <>
+      <Helmet>
+        <title>Marathon Details</title>
+      </Helmet>
+      <div className="my-10">
+        <div className=" w-8/12 mx-auto">
+          <div className="card bg-gray-300 w-10/12 mx-auto shadow-lg rounded-2xl">
+            <figure>
+              <img
+                className="w-full bg-amber-300 h-[500px]"
+                src={marathonData.image}
+                alt="marathonData Image"
+              />
+            </figure>
+            <div className="card-body">
+              <div className="flex items-center">
+                <h2 className="card-title text-[40px] h-15 font-bold bg-gradient-to-tl from-blue-600 to-green-800 bg-clip-text text-transparent">
+                  {marathonData.title}
+                </h2>
+                <p className="text-2xl flex justify-end font-bold text-black">
+                  Location- {marathonData.location}
+                </p>
               </div>
-            </div>
-            <hr />
-            <div className="card-actions flex items-center justify-between">
-              <div className="text-2xl text-black">
-                Total Application for this : {registeredList.length}
+              <p className="text-2xl text-black">{marathonData.description}</p>
+              <div className="flex  gap-5 w-full justify-between">
+                <p className="w-fit text-green-600 text-xl   ">
+                  Regi-Start :{marathonData.regi_start}
+                </p>
+                <p className="w-fit text-xl text-red-600 flex justify-end   ">
+                  Regi-End :{marathonData.regi_end}
+                </p>
               </div>
-              <div>{content}</div>
+              <hr />
+              <div className="flex items-center">
+                <p className=" text-2xl text-green-600">
+                  Marathon Start date - {marathonData.marathon_start}
+                </p>
+                <div className="text-black font-bold">
+                  <h2>🚀 Countdown to Marathon Start</h2>
+                  <Countdown date={targetDate} renderer={renderer} />
+                </div>
+              </div>
+              <hr />
+              <div className="card-actions flex items-center justify-between">
+                <div className="text-2xl text-black">
+                  Total Application for this : {registeredList.length}
+                </div>
+                <div>{content}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

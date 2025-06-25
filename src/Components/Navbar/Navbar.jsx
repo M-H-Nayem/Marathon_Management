@@ -89,6 +89,7 @@ const Navbar = () => {
                     >
                       Dashboard
                     </NavLink>
+                    
                     <NavLink to={"/profile"}>
                       {user ? (
                         <img
