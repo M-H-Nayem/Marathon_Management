@@ -69,10 +69,10 @@ Persistent Data Storage:
 Utilizes MongoDB as the NoSQL database for storing all marathon event details, user information, and application data.
 
 🚀 Technologies Used
-Frontend Development:
+Frontend Development:HTML ,CSS. TAILWIND CSS, JAVASCRIPT
 
-Backend Development:
+Backend Development:NODE JS, EXPRESS JS
 
-Database:
+Database: MONGODB,
 
-Authentication & Deployment (or other services):
+Authentication & Deployment (or other services):Firebase
