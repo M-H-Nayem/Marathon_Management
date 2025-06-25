@@ -2,7 +2,7 @@
 A comprehensive full-stack web application for organizing, exploring, and participating in marathon events.
 
 🚀 Live Demo
-[Link](https://marathon-management-event.surge.sh)
+[https://marathon-management-event.surge.sh](https://marathon-management-event.surge.sh)
 
 📸 Screenshots
 
