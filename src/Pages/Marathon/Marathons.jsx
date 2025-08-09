@@ -45,12 +45,6 @@ const Marathons = () => {
             value={sort}
             className="select select-secondary w-80 px-5 rounded-full"
           >
-            {/* <option
-            // disabled={true}
-            >
-              Select a sort System
-            </option> */}
-            {/* <option value={'asc'}>Oldest to Newest</option> */}
             <option value="">Default</option>
             <option value="asc">Oldest to Newest</option>
             <option value="desc">Newest to Oldest</option>

@@ -13,6 +13,7 @@ const HomePage = () => {
   let marathonData = useLoaderData();
   return (
     <div>
+      
       <DynamicTitle></DynamicTitle>
       <Banner></Banner>
       <Slider></Slider>
