@@ -4,7 +4,6 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { AuthContext } from "../../AuthProvider";
 
 const DashBoard = () => {
-  const { user } = useContext(AuthContext);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
