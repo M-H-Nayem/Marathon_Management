@@ -61,7 +61,7 @@ const Register = () => {
 
   let handleGoogleLogin = () => {
     googleLogin()
-      .then((result) => {
+      .then(() => {
         navigate(`${location.state ? location.state : "/"}`);
         Swal.fire({
           icon: "success",
@@ -70,7 +70,7 @@ const Register = () => {
           timer: 1500,
         });
       })
-      .catch((error) => {});
+      .catch(() => {});
   };
 
   return (
@@ -79,14 +79,14 @@ const Register = () => {
       <div className="flex justify-center items-center min-h-[calc(100vh-100px)] p-4 ">
         <div className="w-full max-w-[600px] bg-white text-gray-900 rounded-3xl shadow-xl p-8 transform transition-transform duration-500 ">
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-extrabold text-gray-800">
+            <h1 className="text-4xl mb-10 bg-gradient-to-r from-[#1E40AF] to-[#06B6D4] bg-clip-text text-transparent md:text-5xl font-bold text-center h-15">
               Please Register
             </h1>
           </div>
           <div className="space-y-6">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xl font-semibold mb-2 text-gray-700">Name</label>
+                <label className="block text-xl font-semibold mb-2 bg-gradient-to-r from-[#1E40AF] to-[#06B6D4] bg-clip-text text-transparent">Name</label>
                 <input
                   name="name"
                   type="text"
@@ -97,7 +97,7 @@ const Register = () => {
                 {nameError && <p className="text-red-600 text-sm mt-2">{nameError}</p>}
               </div>
               <div>
-                <label className="block text-xl font-semibold mb-2 text-gray-700">Photo URL</label>
+                <label className="block text-xl font-semibold mb-2 bg-gradient-to-r from-[#1E40AF] to-[#06B6D4] bg-clip-text text-transparent">Photo URL</label>
                 <input
                   name="photo"
                   type="text"
@@ -107,7 +107,7 @@ const Register = () => {
                 />
               </div>
               <div>
-                <label className="block text-xl font-semibold mb-2 text-gray-700">Email</label>
+                <label className="block text-xl font-semibold mb-2 bg-gradient-to-r from-[#1E40AF] to-[#06B6D4] bg-clip-text text-transparent">Email</label>
                 <input
                   name="email"
                   type="email"
@@ -117,7 +117,7 @@ const Register = () => {
                 />
               </div>
               <div>
-                <label className="block text-xl font-semibold mb-2 text-gray-700">Password</label>
+                <label className="block text-xl font-semibold mb-2 bg-gradient-to-r from-[#1E40AF] to-[#06B6D4] bg-clip-text text-transparent">Password</label>
                 <input
                   name="password"
                   type="password"
@@ -129,13 +129,13 @@ const Register = () => {
               </div>
               <button
                 type="submit"
-                className="w-full text-xl font-bold text-white py-3 rounded-lg bg-blue-600 hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105"
+                className="w-full text-xl font-bold text-white py-3 rounded-lg btn border-none bg-gradient-to-r from-[#1E40AF] to-[#06B6D4]  shadow-lg transition-colors duration-300 transform hover:scale-101"
               >
                 Register
               </button>
             </form>
 
-            <div className="relative flex items-center py-5">
+            <div className="relative flex items-center ">
               <div className="flex-grow border-t border-gray-300"></div>
               <span className="flex-shrink mx-4 text-gray-500">or</span>
               <div className="flex-grow border-t border-gray-300"></div>
@@ -143,7 +143,7 @@ const Register = () => {
 
             <button
               onClick={handleGoogleLogin}
-              className="w-full flex items-center justify-center space-x-3 py-3 border border-gray-300 rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200"
+              className="w-full btn flex items-center justify-center space-x-3 py-3 border border-gray-300 rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200"
             >
               <FaGoogle size={20} className="text-blue-600" />
               <span className="text-[17px] font-semibold">Register with Google</span>
