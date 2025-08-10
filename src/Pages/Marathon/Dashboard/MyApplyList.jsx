@@ -1,7 +1,7 @@
 import React, { use, useEffect, useState } from "react";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { MdBrowserUpdated } from "react-icons/md";
-import { Link, useLoaderData, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../../AuthProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -31,7 +31,7 @@ const MyApplyList = () => {
         setLoading(false);
         setMyApply(res.data);
       })
-      .catch((err) => {});
+      .catch(() => {});
   }, [user, searchText]);
 
   let handleDeleteMarathonApply = (id) => {
@@ -49,7 +49,7 @@ const MyApplyList = () => {
           method: "DELETE",
         })
           .then((res) => res.json())
-          .then((data) => {
+          .then(() => {
             Swal.fire({
               title: "Deleted!",
               text: "Your Marathon Application has been cancelled.",
@@ -124,27 +124,21 @@ const MyApplyList = () => {
   }
 
   return (
-    <>
+    <div className="bg-gray-100 min-h-screen ">
       <Helmet>
         <title>My Apply List - Marathon App</title>
       </Helmet>
 
-      <div className="w-full">
-        <div className="">
-          <form
-            // onSubmit={handleSearch}
-            className="max-w-md mx-auto"
-          >
-            <label
-              for="default-search"
-              className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-            >
-              Search
-            </label>
+      <div className="max-w-7xl mx-auto">
+        <div className="my-8">
+          <h2 className="text-4xl mb-10 bg-gradient-to-r from-[#1E40AF] to-[#06B6D4] bg-clip-text text-transparent md:text-5xl font-bold text-center lg:h-15">
+            My Applied Marathons
+          </h2>
+          <form className="max-w-md mx-auto mb-8">
             <div className="relative">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  className="w-5 h-5 text-gray-500"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -152,9 +146,9 @@ const MyApplyList = () => {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                   />
                 </svg>
@@ -162,220 +156,250 @@ const MyApplyList = () => {
               <input
                 type="search"
                 id="default-search"
-                className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search by title...."
+                className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Search by title..."
                 onChange={(e) => setSearchText(e.target.value)}
-                required
+                value={searchText}
               />
-              {/* <button
-                type="submit"
-                class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Search
-              </button> */}
             </div>
           </form>
         </div>
-        <div className="w-full ">
-          {myApply.length > 0 ? (
-            <div className="h-fit pb-40">
-              <div className="overflow-x-auto  w-10/12 mx-auto m-10  p-5 rounded-2xl bg-gray-400 text-black shadow-[0_0px_80px_rgba(255,215,0,0.7)] ">
-                <table className="table">
-                  <thead>
-                    <tr className="text-black text-[22px] font-semibold border-b-1 border-black">
+
+        {myApply.length > 0 ? (
+          <div>
+            {/* Desktop Table View */}
+            <div className="hidden lg:block">
+              <div className="overflow-x-auto shadow-xl rounded-2xl bg-white">
+                <table className="table w-full">
+                  <thead className="bg-blue-600 text-white">
+                    <tr className="text-lg">
                       <th>No</th>
-                      {/* <th>Cover</th> */}
                       <th>Marathon Title</th>
                       <th>First Name</th>
                       <th>Last Name</th>
                       <th>Contact</th>
-                      <th>Marathon Start</th>
-
-                      <th>About</th>
+                      <th>Marathon Date</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
-                  {myApply.map((marathon, index) => (
-                    <tbody key={index}>
-                      <tr className="text-black text-[20px]   border-b-1 border-black">
-                        <th>{index + 1}</th>
-                        {/* <td>
-                      <img
-                        className="w-[80px] h-[50px] p-0"
-                        src={marathon.image}
-                        alt=""
-                      />
-                    </td> */}
+                  <tbody>
+                    {myApply.map((marathon, index) => (
+                      <tr
+                        key={marathon._id}
+                        className="border-b border-gray-200 hover:bg-gray-50 text-gray-700"
+                      >
+                        <td>{index + 1}</td>
+                        <td>
+                          <img
+                            className="w-20 h-12 object-cover rounded-lg"
+                            src={marathon.image}
+                            alt={marathon.title}
+                          />
+                        </td>
                         <td>{marathon.title}</td>
-                        <td>{marathon.first_name}</td>
-                        <td>{marathon.last_name}</td>
-                        <td>{marathon.number}</td>
+                        <td>{marathon.location}</td>
+                        <td>{marathon.distance}</td>
                         <td>{marathon.marathon_start}</td>
-                        <td className="grid gap-2 h-20 my-auto grid-cols-2 justify-center items-center">
-                          <>
+                        <td>
+                          <div className="flex gap-2">
                             <button
-                              className="hover:bg-amber-200"
+                              className="text-green-500 hover:text-green-700 transition duration-200"
                               onClick={() => handleSingleLoad(marathon._id)}
                             >
-                              <MdBrowserUpdated fill="green" size={30} />
+                              <MdBrowserUpdated size={28} />
                             </button>
-
-                            {isOpen && (
-                              <div className="fixed inset-0  bg-opacity-10 flex h-screen py-50 justify-center items-center z-50">
-                                <div className="bg-gray-700 rounded-3xl shadow-lg w-180  relative">
-                                  <button
-                                    className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                                    onClick={() => setIsOpen(false)}
-                                  >
-                                    ✕
-                                  </button>
-
-                                  <form
-                                    onSubmit={(e) =>
-                                      handleUpdateMarathonApply(
-                                        e,
-                                        selectedApplyData._id
-                                      )
-                                    }
-                                    className=" mx-auto p-5 px-6  bg-gray-800 text-white text-[16px] rounded-3xl shadow space-y-1"
-                                  >
-                                    <h2 className="text-2xl font-bold mb-4 text-center">
-                                      Update Marathon Application Info
-                                    </h2>
-
-                                    <div className="">
-                                      <label className="block mb-1 font-semibold">
-                                        Marathon Title (Read Only)
-                                      </label>
-                                      <input
-                                        type="text"
-                                        name="title"
-                                        value={selectedApplyData.title}
-                                        placeholder="Marathon Title"
-                                        className="w-full p-2 border rounded"
-                                        required
-                                      />
-                                    </div>
-
-                                    <div>
-                                      <label className="block mb-1 font-semibold">
-                                        Marathon Start Date (Read Only)
-                                      </label>
-                                      <input
-                                        type="date"
-                                        value={selectedApplyData.date}
-                                        className="w-full p-2 border rounded"
-                                        name="marathon_start"
-                                        placeholderText="Marathon Date"
-                                        dateFormat="yyyy-MM-dd"
-                                      />
-                                    </div>
-                                    <div>
-                                      <label className="block mb-1 font-semibold">
-                                        Email (Read Only)
-                                      </label>
-                                      <input
-                                        type="text"
-                                        name="email"
-                                        value={user.email}
-                                        className="w-full p-2 border rounded bg-gray-800"
-                                        required
-                                      />
-                                    </div>
-                                    <div>
-                                      <label className="block mb-1 font-semibold">
-                                        First Name
-                                      </label>
-                                      <input
-                                        type="text"
-                                        name="first_name"
-                                        defaultValue={
-                                          selectedApplyData.first_name
-                                        }
-                                        className="w-full p-2 border rounded bg-gray-800"
-                                        required
-                                      />
-                                    </div>
-                                    <div>
-                                      <label className="block mb-1 font-semibold">
-                                        Last Name
-                                      </label>
-                                      <input
-                                        type="text"
-                                        name="last_name"
-                                        defaultValue={
-                                          selectedApplyData.last_name
-                                        }
-                                        className="w-full p-2 border rounded bg-gray-800"
-                                        required
-                                      />
-                                    </div>
-                                    <div>
-                                      <label className="block mb-1 font-semibold">
-                                        Contact Number
-                                      </label>
-                                      <input
-                                        type="number"
-                                        defaultValue={selectedApplyData.number}
-                                        name="number"
-                                        className="w-full p-2 border rounded bg-gray-800"
-                                        required
-                                      />
-                                    </div>
-                                    <div>
-                                      <label className="block mb-1 font-semibold">
-                                        Additional Info
-                                      </label>
-                                      <textarea
-                                        name="additional_info"
-                                        placeholder="Additional Info"
-                                        defaultValue={
-                                          selectedApplyData.additional_info
-                                        }
-                                        rows={4}
-                                        className="w-full p-2 border rounded"
-                                        required
-                                      ></textarea>
-                                    </div>
-
-                                    <button
-                                      type="submit"
-                                      className="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700"
-                                    >
-                                      Update Apply Info
-                                    </button>
-                                  </form>
-                                </div>
-                              </div>
-                            )}
-                          </>
-
-                          <button
-                            className="flex justify-center items-center"
-                            onClick={() =>
-                              handleDeleteMarathonApply(marathon._id)
-                            }
-                          >
-                            <RiDeleteBin2Line fill="red" size={28} />
-                          </button>
+                            <button
+                              className="text-red-500 hover:text-red-700 transition duration-200"
+                              onClick={() => handleDeleteMarathonApply(marathon._id)}
+                            >
+                              <RiDeleteBin2Line size={28} />
+                            </button>
+                          </div>
                         </td>
                       </tr>
-                    </tbody>
-                  ))}
+                    ))}
+                  </tbody>
                 </table>
               </div>
             </div>
-          ) : (
-            <div className="h-screen">
-              <div className="w-[35%] mx-auto my-10 p-10 border-2  rounded-2xl bg-gray-300 text-black">
-                <h1 className="text-3xl text-center">
-                  You have not Applied for any Marathon Event..
-                </h1>
+
+            {/* Mobile Card View */}
+            <div className="lg:hidden">
+              <div className="space-y-6">
+                {myApply.map((marathon) => (
+                  <div
+                    key={marathon._id}
+                    className="bg-white rounded-xl shadow-lg p-5 border border-gray-200"
+                  >
+                    <img
+                      src={marathon.image}
+                      alt={marathon.title}
+                      className="w-full h-40 object-cover rounded-md mb-4"
+                    />
+                    <h3 className="text-xl font-bold mb-2 text-gray-900">
+                      {marathon.title}
+                    </h3>
+                    <div className="text-gray-600 space-y-1 text-sm">
+                      <p>
+                        <span className="font-semibold">Location:</span>{" "}
+                        {marathon.location}
+                      </p>
+                      <p>
+                        <span className="font-semibold">Distance:</span>{" "}
+                        {marathon.distance}
+                      </p>
+                      <p>
+                        <span className="font-semibold">Date:</span>{" "}
+                        {marathon.marathon_start}
+                      </p>
+                    </div>
+                    <div className="mt-4 flex justify-end gap-3">
+                      <button
+                        className="text-green-500 hover:text-green-700 transition duration-200"
+                        onClick={() => handleSingleLoad(marathon._id)}
+                      >
+                        <MdBrowserUpdated size={28} />
+                      </button>
+                      <button
+                        className="text-red-500 hover:text-red-700 transition duration-200"
+                        onClick={() => handleDeleteMarathonApply(marathon._id)}
+                      >
+                        <RiDeleteBin2Line size={28} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          )}
-        </div>
+
+            {/* Update Modal */}
+            {isOpen && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                <div className="bg-white rounded-3xl shadow-2xl max-h-[90vh] overflow-y-auto w-full max-w-2xl relative p-6">
+                  <button
+                    className="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 text-gray-500 hover:text-gray-800"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    ✕
+                  </button>
+                  <form
+                    onSubmit={(e) =>
+                      handleUpdateMarathonApply(e, selectedApplyData._id)
+                    }
+                    className="space-y-4"
+                  >
+                    <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
+                      Update Marathon Application Info
+                    </h2>
+
+                    <div>
+                      <label className="block text-gray-700 font-semibold mb-1">
+                        Marathon Title
+                      </label>
+                      <input
+                        type="text"
+                        name="title"
+                        defaultValue={selectedApplyData.title}
+                        readOnly
+                        className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 font-semibold mb-1">
+                        Marathon Date
+                      </label>
+                      <input
+                        type="text"
+                        name="marathon_start"
+                        defaultValue={selectedApplyData.marathon_start}
+                        readOnly
+                        className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
+                      />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-gray-700 font-semibold mb-1">
+                          First Name
+                        </label>
+                        <input
+                          type="text"
+                          name="first_name"
+                          defaultValue={selectedApplyData.first_name}
+                          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-gray-700 font-semibold mb-1">
+                          Last Name
+                        </label>
+                        <input
+                          type="text"
+                          name="last_name"
+                          defaultValue={selectedApplyData.last_name}
+                          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 font-semibold mb-1">
+                        Contact Number
+                      </label>
+                      <input
+                        type="number"
+                        name="number"
+                        defaultValue={selectedApplyData.number}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 font-semibold mb-1">
+                        Additional Info
+                      </label>
+                      <textarea
+                        name="additional_info"
+                        defaultValue={selectedApplyData.additional_info}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        rows={4}
+                        required
+                      ></textarea>
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 font-semibold mb-1">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={user?.email || ""}
+                        readOnly
+                        className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      className="w-full mt-4 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 transition"
+                    >
+                      Update Application
+                    </button>
+                  </form>
+                </div>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="flex justify-center items-center h-[70vh]">
+            <div className="w-11/12 md:w-1/2 lg:w-1/3 p-8 bg-white rounded-2xl shadow-xl text-center">
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-700">
+                You have not applied for any Marathon Event.
+              </h1>
+            </div>
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 

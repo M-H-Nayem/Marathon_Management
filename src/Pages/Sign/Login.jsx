@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../../AuthProvider";
 import DynamicTitle from "../../Components/DynamicTitle";
 import { Helmet } from "react-helmet-async";
+import { FaGoogle } from "react-icons/fa";
 
 const Login = () => {
   let [error, setError] = useState("");
@@ -56,81 +57,75 @@ const Login = () => {
   };
 
     return (
-    <>
+    <div>
       <DynamicTitle></DynamicTitle>
-      <div className="card bg-[#1E1E1E] w-full max-w-lg text-white  shrink-0 shadow-[0_0px_80px_rgba(255,215,0,0.7)]xl mx-auto rounded-2xl my-10 p-5">
-        <h1 className="text-center text-3xl font-bold">Log In</h1>
-        <div className="card-body  rounded-2xl">
-          <form onSubmit={handleLogin} className="fieldset">
-            <label className="label text-xl">Email</label>
-            <input
-              name="email"
-              type="email"
-              className="input bg-[#1c2128] px-3 w-full"
-              placeholder="Email"
-              required
-            />
-            <label className="label text-xl">Password</label>
-            <input
-              name="password"
-              type="password"
-              className="input  bg-[#1c2128] px-3 w-full"
-              placeholder="Password"
-              required
-            />
-            <div className="hover:underline">
-              <Link>Forgot password?</Link>
+       <div className="flex justify-center items-center min-h-[calc(100vh-100px)] p-4 ">
+        <div className="w-full max-w-lg bg-white text-gray-900 rounded-3xl shadow-xl p-8 transform transition-transform duration-500 ">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl mb-10 bg-gradient-to-r from-[#1E40AF] to-[#06B6D4] bg-clip-text text-transparent md:text-5xl font-bold text-center lg:h-15">
+              Log In
+            </h1>
+          </div>
+          <div className="space-y-6">
+            <form onSubmit={handleLogin} className="space-y-4">
+              <div>
+                <label className="block text-xl font-semibold mb-2 bg-gradient-to-r from-[#1E40AF] to-[#06B6D4] bg-clip-text text-transparent">Email</label>
+                <input
+                  name="email"
+                  type="email"
+                  className="w-full px-4 py-3 bg-gray-50 text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors"
+                  placeholder="Your email address"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-xl font-semibold mb-2 bg-gradient-to-r from-[#1E40AF] to-[#06B6D4] bg-clip-text text-transparent">Password</label>
+                <input
+                  name="password"
+                  type="password"
+                  className="w-full px-4 py-3 bg-gray-50 text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors"
+                  placeholder="Your password"
+                  required
+                />
+              </div>
+              <div className="text-sm text-right">
+                <p  className="text-blue-600 hover:underline transition-colors">
+                  Forgot password?
+                </p>
+              </div>
+              {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
+              <button
+                type="submit"
+                className="w-full text-xl font-bold text-white py-3 rounded-lg btn border-none bg-gradient-to-r from-[#1E40AF] to-[#06B6D4]  shadow-lg transition-colors duration-300 transform hover:scale-101"
+              >
+                Login
+              </button>
+            </form>
+
+            <div className="relative flex items-center py-5">
+              <div className="flex-grow border-t border-gray-300"></div>
+              <span className="flex-shrink mx-4 text-gray-500">or</span>
+              <div className="flex-grow border-t border-gray-300"></div>
             </div>
-            {error && <p className="text-red-700">{error}</p>}
-            <button
-              type="submit"
-              className="btn text-xl text-white  bg-orange-300 mt-2 border-none "
-            >
-              Login
-            </button>
+
             <button
               onClick={handleGoogleLogin}
-              className="btn bg-white text-black border-[#e5e5e5] text-[17px] mt-3"
+              className="w-full btn flex items-center justify-center space-x-3 py-3 border border-gray-300 rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200"
             >
-              <svg
-                aria-label="Google logo"
-                width="20"
-                height="20"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-              >
-                <g>
-                  <path d="m0 0H512V512H0" fill="#fff"></path>
-                  <path
-                    fill="#34a853"
-                    d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
-                  ></path>
-                  <path
-                    fill="#4285f4"
-                    d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
-                  ></path>
-                  <path
-                    fill="#fbbc02"
-                    d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
-                  ></path>
-                  <path
-                    fill="#ea4335"
-                    d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
-                  ></path>
-                </g>
-              </svg>
-              Login with Google
+              <FaGoogle size={20} className="text-blue-600" />
+              <span className="text-[17px] font-semibold">Login with Google</span>
             </button>
-            <p>
-              New in this Website ? Please{" "}
-              <Link className="underline text-blue-400" to="/register">
+
+            <p className="text-center text-gray-600 mt-6">
+              New to this Website? Please{' '}
+              <Link className="underline text-blue-600 hover:text-blue-700 transition-colors" to="/register">
                 Register
-              </Link>{" "}
+              </Link>
             </p>
-          </form>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

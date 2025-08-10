@@ -108,7 +108,7 @@ const MyMarathonList = () => {
         if (res.data.modifiedCount) {
           Swal.fire({
             icon: "success",
-            title: "Your Marathon Updated sucessfully",
+            title: "Your Marathon Updated successfully",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -118,7 +118,7 @@ const MyMarathonList = () => {
           }, 1500);
         }
       })
-      .catch((err) => {});
+      .catch(() => {});
   };
 
   if (loading) {
@@ -126,243 +126,262 @@ const MyMarathonList = () => {
   }
 
   return (
-    <>
+    <div className="bg-gray-100 min-h-screen p-4">
       <Helmet>
         <title>My Marathon List - Marathon App</title>
       </Helmet>
 
-      <div className="w-full ">
-        {myMarathons.length > 0 ? (
-          <div className="h-fit pb-40">
-            <div className="overflow-x-auto  w-10/12 mx-auto m-10  p-5 rounded-2xl bg-gray-400 text-black shadow-[0_0px_80px_rgba(255,215,0,0.7)] ">
-              <table className="table">
-                <thead>
-                  <tr className="text-black text-[22px] font-semibold border-b-1 border-black">
+      {myMarathons.length > 0 ? (
+        <div className="max-w-7xl mx-auto">
+          {/* Desktop Table View */}
+          <div className="hidden lg:block">
+            <h2 className="text-4xl mb-10 bg-gradient-to-r from-[#1E40AF] to-[#06B6D4] bg-clip-text text-transparent md:text-5xl font-bold text-center h-15">
+              My Marathons
+            </h2>
+            <div className="overflow-x-auto shadow-xl rounded-2xl bg-white">
+              <table className="table w-full">
+                <thead className="bg-blue-600 text-white">
+                  <tr className="text-lg">
                     <th>No</th>
                     <th>Cover</th>
                     <th>Title</th>
                     <th>Location</th>
                     <th>Distance</th>
-                    <th>Marathon Start Date</th>
-
-                    <th>About</th>
+                    <th>Marathon Date</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
-                {myMarathons.map((marathon, index) => (
-                  <tbody key={index}>
-                    <tr className="text-black text-[20px]   border-b-1 border-black">
-                      <th>{index + 1}</th>
+                <tbody>
+                  {myMarathons.map((marathon, index) => (
+                    <tr
+                      key={marathon._id}
+                      className="border-b border-gray-200 hover:bg-gray-50 text-gray-700"
+                    >
+                      <td>{index + 1}</td>
                       <td>
                         <img
-                          className="w-[80px] h-[50px] p-0"
+                          className="w-20 h-12 object-cover rounded-lg"
                           src={marathon.image}
-                          alt=""
+                          alt={marathon.title}
                         />
                       </td>
                       <td>{marathon.title}</td>
                       <td>{marathon.location}</td>
                       <td>{marathon.distance}</td>
                       <td>{marathon.marathon_start}</td>
-
-                      <td className="grid h-20 my-auto grid-cols-2 justify-center items-center">
-                        <>
-                          <Link
-                          // to={`/dashboard/${marathon._id}`}
+                      <td>
+                        <div className="flex gap-2">
+                          <button
+                            className="text-green-500 hover:text-green-700 transition duration-200"
+                            onClick={() => handleSingleLoad(marathon._id)}
                           >
-                            <button
-                              className="hover:bg-amber-100 mt-2"
-                              onClick={() => handleSingleLoad(marathon._id)}
-                            >
-                              <MdBrowserUpdated fill="green" size={30} />
-                            </button>
-                          </Link>
-
-                          {isOpen && (
-                            <div className="fixed inset-0  bg-opacity-10 flex h-screen py-50 justify-center items-center z-50">
-                              <div className="bg-gray-700 rounded-3xl shadow-lg w-180  relative">
-                                <button
-                                  className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                                  onClick={() => setIsOpen(false)}
-                                >
-                                  ✕
-                                </button>
-
-                                <form
-                                  onSubmit={(e) =>
-                                    handleUpdateMarathon(e, selectedData._id)
-                                  }
-                                  className=" mx-auto p-5 px-6  bg-gray-800 text-white text-[16px] rounded-3xl shadow space-y-1"
-                                >
-                                  <h2 className="text-2xl font-bold mb-4 text-center">
-                                    Update Marathon Info
-                                  </h2>
-
-                                  <label className="block mb-1 font-semibold">
-                                    Marathon Title (Read Only)
-                                  </label>
-                                  <input
-                                    type="text"
-                                    name="title"
-                                    value={selectedData.title}
-                                    placeholder="Marathon Title"
-                                    className="w-full p-2 border rounded"
-                                    required
-                                  />
-
-                                  <div className="flex flex-col md:flex-row gap-4">
-                                    <div className="flex-1">
-                                      <label className="block mb-1 font-semibold">
-                                        Registration Start
-                                      </label>
-                                      <input
-                                        type="date"
-                                        defaultValue={selectedData.regi_start}
-                                        className="w-full p-2 border rounded"
-                                        name="regi_start"
-                                        placeholderText="Start Date"
-                                        dateFormat="yyyy-MM-dd"
-                                      />
-                                    </div>
-                                    <div className="flex-1">
-                                      <label className="block mb-1 font-semibold">
-                                        Registration End
-                                      </label>
-                                      <input
-                                        type="date"
-                                        defaultValue={selectedData.regi_end}
-                                        className="w-full p-2 border rounded"
-                                        name="regi_start"
-                                        placeholderText="Start Date"
-                                        dateFormat="yyyy-MM-dd"
-                                      />
-                                    </div>
-                                  </div>
-
-                                  <div>
-                                    <label className="block mb-1 font-semibold">
-                                      Marathon Start Date (Read Only)
-                                    </label>
-                                    <input
-                                      type="date"
-                                      value={selectedData.marathon_start}
-                                      className="w-full p-2 border rounded"
-                                      name="marathon_start"
-                                      placeholderText="Marathon Date"
-                                      dateFormat="yyyy-MM-dd"
-                                    />
-                                  </div>
-                                  <div className="">
-                                    <label className="block mb-1 font-semibold">
-                                      Location
-                                    </label>
-                                    <input
-                                      type="text"
-                                      name="location"
-                                      defaultValue={selectedData.location}
-                                      placeholder="Location"
-                                      className="w-full p-2 border rounded"
-                                      required
-                                    />
-                                  </div>
-
-                                  <div>
-                                    <label className="block mb-1 font-semibold">
-                                      Running Distance
-                                    </label>
-                                    <select
-                                      name="distance"
-                                      defaultValue={selectedData.distance}
-                                      className="w-full p-2 border rounded bg-gray-800"
-                                      required
-                                    >
-                                      <option value="">Select Distance</option>
-                                      <option value="25k">25k</option>
-                                      <option value="10k">10k</option>
-                                      <option value="3k">3k</option>
-                                    </select>
-                                  </div>
-
-                                  <div className="">
-                                    <label className="block mb-1 font-semibold">
-                                      Description
-                                    </label>
-                                    <input
-                                      type="text"
-                                      defaultValue={selectedData.description}
-                                      name="description"
-                                      placeholder="Description"
-                                      rows={4}
-                                      className="w-full p-2 border rounded"
-                                      required
-                                    />
-                                  </div>
-
-                                  <div>
-                                    <label className="block mb-1 font-semibold">
-                                      Upload Image Link
-                                    </label>
-                                    <input
-                                      type="text"
-                                      name="image"
-                                      defaultValue={selectedData.image}
-                                      className="w-full p-2 border rounded bg-gray-800"
-                                      required
-                                    />
-                                  </div>
-                                  <div>
-                                    <label className="block mb-1 font-semibold">
-                                      Email
-                                    </label>
-                                    <input
-                                      type="text"
-                                      name="email"
-                                      value={user.email}
-                                      className="w-full p-2 border rounded bg-gray-800"
-                                      required
-                                    />
-                                  </div>
-
-                                  <button
-                                    type="submit"
-                                    className="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700"
-                                  >
-                                    Update
-                                  </button>
-                                </form>
-                              </div>
-                            </div>
-                          )}
-                        </>
-
-                        <button
-                          className="flex hover:bg-amber-100 justify-center items-center"
-                          onClick={() => handleDeleteMarathon(marathon._id)}
-                        >
-                          <RiDeleteBin2Line fill="red" size={28} />
-                        </button>
+                            <MdBrowserUpdated size={28} />
+                          </button>
+                          <button
+                            className="text-red-500 hover:text-red-700 transition duration-200"
+                            onClick={() => handleDeleteMarathon(marathon._id)}
+                          >
+                            <RiDeleteBin2Line size={28} />
+                          </button>
+                        </div>
                       </td>
                     </tr>
-                  </tbody>
-                ))}
+                  ))}
+                </tbody>
               </table>
             </div>
           </div>
-        ) : (
-          <div className="h-screen">
-            <div className="w-[35%] mx-auto my-10 p-10 border-2  rounded-2xl bg-gray-300 text-black">
-              <h1 className="text-3xl text-center">
-                You have not Added any Marathon yet
-              </h1>
-              <Link to={`/dashboard/addmarathon`}>
-                <p className="text-center text-2xl mt-5 btn flex w-[100%] mx-auto">
-                  Add Marathon
-                </p>
-              </Link>
+
+          {/* Mobile Card View */}
+          <div className="lg:hidden">
+            <h2 className="text-3xl font-extrabold text-center mb-6 text-gray-800">
+              My Marathons
+            </h2>
+            <div className="space-y-6">
+              {myMarathons.map((marathon) => (
+                <div
+                  key={marathon._id}
+                  className="bg-white rounded-xl shadow-lg p-5 border border-gray-200"
+                >
+                  <img
+                    src={marathon.image}
+                    alt={marathon.title}
+                    className="w-full h-40 object-cover rounded-md mb-4"
+                  />
+                  <h3 className="text-xl font-bold mb-2 text-gray-900">
+                    {marathon.title}
+                  </h3>
+                  <div className="text-gray-600 space-y-1 text-sm">
+                    <p>
+                      <span className="font-semibold">Location:</span>{" "}
+                      {marathon.location}
+                    </p>
+                    <p>
+                      <span className="font-semibold">Distance:</span>{" "}
+                      {marathon.distance}
+                    </p>
+                    <p>
+                      <span className="font-semibold">Date:</span>{" "}
+                      {marathon.marathon_start}
+                    </p>
+                  </div>
+                  <div className="mt-4 flex justify-end gap-3">
+                    <button
+                      className="text-green-500 hover:text-green-700 transition duration-200"
+                      onClick={() => handleSingleLoad(marathon._id)}
+                    >
+                      <MdBrowserUpdated size={28} />
+                    </button>
+                    <button
+                      className="text-red-500 hover:text-red-700 transition duration-200"
+                      onClick={() => handleDeleteMarathon(marathon._id)}
+                    >
+                      <RiDeleteBin2Line size={28} />
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        )}
-      </div>
-    </>
+
+          {/* Update Modal */}
+          {isOpen && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+              <div className="bg-white rounded-3xl shadow-2xl max-h-[90vh] overflow-y-auto w-full max-w-2xl relative p-6">
+                <button
+                  className="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 text-gray-500 hover:text-gray-800"
+                  onClick={() => setIsOpen(false)}
+                >
+                  ✕
+                </button>
+                <form
+                  onSubmit={(e) => handleUpdateMarathon(e, selectedData._id)}
+                  className="space-y-4"
+                >
+                  <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
+                    Update Marathon Info
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-gray-700 font-semibold mb-1">Title</label>
+                      <input
+                        type="text"
+                        name="title"
+                        defaultValue={selectedData.title}
+                        readOnly
+                        className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 font-semibold mb-1">Location</label>
+                      <input
+                        type="text"
+                        name="location"
+                        defaultValue={selectedData.location}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-gray-700 font-semibold mb-1">Registration Start</label>
+                      <input
+                        type="date"
+                        name="regi_start"
+                        defaultValue={selectedData.regi_start}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 font-semibold mb-1">Registration End</label>
+                      <input
+                        type="date"
+                        name="regi_end"
+                        defaultValue={selectedData.regi_end}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-gray-700 font-semibold mb-1">Marathon Start Date</label>
+                    <input
+                      type="date"
+                      name="marathon_start"
+                      defaultValue={selectedData.marathon_start}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-gray-700 font-semibold mb-1">Distance</label>
+                    <select
+                      name="distance"
+                      defaultValue={selectedData.distance}
+                      className="w-full p-3 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      required
+                    >
+                      <option value="">Select Distance</option>
+                      <option value="25k">25k</option>
+                      <option value="10k">10k</option>
+                      <option value="3k">3k</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-gray-700 font-semibold mb-1">Description</label>
+                    <textarea
+                      name="description"
+                      defaultValue={selectedData.description}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      rows={4}
+                      required
+                    ></textarea>
+                  </div>
+                  <div>
+                    <label className="block text-gray-700 font-semibold mb-1">Image Link</label>
+                    <input
+                      type="text"
+                      name="image"
+                      defaultValue={selectedData.image}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-gray-700 font-semibold mb-1">Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={user?.email || ""}
+                      readOnly
+                      className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full mt-4 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 transition"
+                  >
+                    Update Marathon
+                  </button>
+                </form>
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="flex justify-center items-center h-full">
+          <div className="w-11/12 md:w-1/2 lg:w-1/3 p-8 bg-white rounded-2xl shadow-xl text-center">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-700 mb-4">
+              You have not added any Marathon yet.
+            </h1>
+            <Link to="/dashboard/addmarathon">
+              <button className="w-full py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 transition">
+                Add Marathon
+              </button>
+            </Link>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

@@ -1,183 +1,149 @@
-import React, { use } from "react";
+import React, { useContext } from "react";
 import { AuthContext } from "../../AuthProvider";
-import { NavLink, Link } from "react-router";
-import { FaUserAlt } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
-  let { user, logOut } = use(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
 
-  let handleLogout = () => {
-    // console.log("out");
-    logOut()
-      .then(() => {})
-      .catch(() => {});
+  const handleLogout = () => {
+    logOut().catch(() => {});
   };
+
+  const linkClass = ({ isActive }) =>
+    isActive
+      ? "btn border-none bg-gradient-to-r from-[#1E40AF] to-[#06B6D4] text-white shadow-lg"
+      : "btn border-none bg-[#1E40AF] text-white hover:from-[#06B6D4] hover:to-[#1E3A8A] hover:bg-gradient-to-r shadow-lg";
+
   return (
-    <>
-      <div className="">
-        <div className="navbar bg-base-100 shadow-sm px-[5%]">
-          <div className="flex-1">
-            <div className="flex gap-2 item-center ">
-              <div className="flex items-center justify-center w-12 h-12 rounded-full dark:bg-violet-600">
-                <div className="w-10 rounded-full">
-                  <img className="w-10 rounded-full" src="/logo.png" alt="" />
-                </div>
-              </div>
-              <h1 className=" text-4xl font-bold bg-gradient-to-l from-[#2117de] to-[#f40404]  bg-clip-text text-transparent">
-                Marathon Pro
-              </h1>
-              <label className="swap swap-rotate">
-                {/* this hidden checkbox controls the state */}
-                <input
-                  type="checkbox"
-                  className="theme-controller"
-                  value="synthwave"
-                />
-
-                {/* sun icon */}
-                <svg
-                  className="swap-off h-10 w-10 fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
-                </svg>
-
-                {/* moon icon */}
-                <svg
-                  className="swap-on h-10 w-10 fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
-                </svg>
-              </label>
-            </div>
+    <nav className="w-full sticky top-0 z-50 bg-gradient-to-l from-[#1E40AF] to-[#06B6D4] text-white shadow-md ">
+      <div className="max-w-7xl mx-auto flex justify-between items-center h-16 px-3 lg:px-0">
+        {/* Logo & Title */}
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm">
+            <img
+              className="w-10 h-10 rounded-full object-cover"
+              src="/logo.png"
+              alt="Marathon Pro Logo"
+              loading="lazy"
+            />
           </div>
-          <div className="flex-none">
-            <div className="menu menu-horizontal px-1">
-              <div>
-                {user ? (
-                  <div className="flex gap-2 ">
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "btn active-link text-black  border-none bg-blue-400"
-                          : "btn border-none bg-amber-400  text-white "
-                      }
-                      to={"/"}
-                    >
-                      Home
-                    </NavLink>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "btn active-link text-black  border-none bg-blue-400"
-                          : "btn border-none bg-amber-400  text-white "
-                      }
-                      to={"/marathons"}
-                    >
-                      Marathons
-                    </NavLink>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "btn active-link text-black  border-none bg-blue-400"
-                          : "btn border-none bg-amber-400  text-white "
-                      }
-                      to={"/dashboard"}
-                    >
-                      Dashboard
-                    </NavLink>
-                    
-                    <NavLink to={"/profile"}>
-                      {user ? (
-                        <img
-                          className="rounded-full w-10 h-10"
-                          src={user?.photoURL}
-                          title={user?.email}
-                          alt="Profile"
-                        />
-                      ) : (
-                        <FaUserAlt
-                          size={30}
-                          fill="gold"
-                          title={user?.email}
-                          className="mt-1"
-                        />
-                      )}
-                    </NavLink>
-                    <button
-                      className="btn border-none bg-amber-400  text-white "
-                      onClick={handleLogout}
-                    >
-                      Logout
-                    </button>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "btn active-link text-black  border-none bg-blue-400"
-                          : "btn border-none bg-amber-400  text-white "
-                      }
-                      to={"/register"}
-                    >
-                      Register
-                    </NavLink>
-                  </div>
-                ) : (
-                  <div className="flex gap-3">
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "btn active-link text-black  border-none bg-blue-400"
-                          : "btn border-none bg-amber-400  text-white "
-                      }
-                      to={"/"}
-                    >
-                      Home
-                    </NavLink>
-                    {/* <NavLink className="btn" to={"/dashboard"}>
+          <h1 className="text-white text-3xl font-bold select-none tracking-wide">
+            Marathon Pro
+          </h1>
+        </div>
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center gap-4">
+          <NavLink to="/" className={linkClass}>
+            Home
+          </NavLink>
+          
+
+          {user ? (
+            <>
+            <NavLink to="/marathons" className={linkClass}>
+            Marathons
+          </NavLink>
+              <NavLink to="/dashboard" className={linkClass}>
+                Dashboard
+              </NavLink>
+              {/* <NavLink to="/results" className={linkClass}>
+                Results
+              </NavLink> */}
+              <NavLink to="/profile" className={''}>
+                {/* Profile */}
+              <img
+                src={user.photoURL || "/default-profile.png"}
+                alt="Profile"
+                title={user.email}
+                className="w-10 h-10 rounded-full border-2 border-[#1E40AF] object-cover"
+              />
+              </NavLink>
+              <button
+                onClick={handleLogout}
+                className="btn bg-[#F97316] text-white border-none hover:bg-[#dc5b13] shadow font-semibold"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <NavLink to="/login" className={linkClass}>
+                Log In
+              </NavLink>
+              <NavLink to="/register" className={linkClass}>
+                Register
+              </NavLink>
+            </>
+          )}
+        </div>
+
+        {/* Mobile Menu */}
+        <div className="md:hidden dropdown dropdown-end">
+          <label
+            tabIndex={0}
+            className="btn bg-[#F97316] text-white border-none hover:bg-[#dc5b13] shadow"
+          >
+            Menu
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu p-2 shadow bg-white rounded-box w-52 text-[#1E40AF] font-semibold flex gap-3"
+          >
+            <li>
+              <NavLink to="/" className={linkClass}>
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/marathons" className={linkClass}>
+                Marathons
+              </NavLink>
+            </li>
+            {user ? (
+              <>
+                <li>
+                  <NavLink to="/dashboard" className={linkClass}>
                     Dashboard
-                  </NavLink> */}
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "btn active-link text-black  border-none bg-blue-400"
-                          : "btn border-none bg-amber-400  text-white "
-                      }
-                      to={"/marathons"}
-                    >
-                      Marathons
-                    </NavLink>
-                    {/* <NavLink to={`/profile`}></NavLink> */}
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "btn active-link text-black  border-none bg-blue-400"
-                          : "btn border-none bg-amber-400  text-white "
-                      }
-                      to={"/login"}
-                    >
-                      Log In
-                    </NavLink>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "btn active-link text-black  border-none bg-blue-400"
-                          : "btn border-none bg-amber-400  text-white "
-                      }
-                      to={"/register"}
-                    >
-                      Register
-                    </NavLink>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/results" className={linkClass}>
+                    Results
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/profile" className={linkClass}>
+                    Profile
+                  </NavLink>
+                </li>
+                <li>
+                  <button
+                    onClick={handleLogout}
+                    className="btn w-full bg-[#F97316] text-white border-none hover:bg-[#dc5b13]"
+                  >
+                    Logout
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <NavLink to="/login" className={linkClass}>
+                    Log In
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/register" className={linkClass}>
+                    Register
+                  </NavLink>
+                </li>
+              </>
+            )}
+          </ul>
         </div>
       </div>
-    </>
+    </nav>
   );
 };
 
