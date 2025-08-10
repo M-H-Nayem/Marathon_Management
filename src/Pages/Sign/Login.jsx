@@ -62,7 +62,7 @@ const Login = () => {
        <div className="flex justify-center items-center min-h-[calc(100vh-100px)] p-4 ">
         <div className="w-full max-w-lg bg-white text-gray-900 rounded-3xl shadow-xl p-8 transform transition-transform duration-500 ">
           <div className="text-center mb-8">
-            <h1 className="text-4xl mb-10 bg-gradient-to-r from-[#1E40AF] to-[#06B6D4] bg-clip-text text-transparent md:text-5xl font-bold text-center lg:h-15">
+            <h1 className="text-4xl mb-10 bg-gradient-to-r from-[#1E40AF] to-[#06B6D4] bg-clip-text text-transparent md:text-5xl font-bold text-center h-15">
               Log In
             </h1>
           </div>
@@ -102,7 +102,7 @@ const Login = () => {
               </button>
             </form>
 
-            <div className="relative flex items-center py-5">
+            <div className="relative flex items-center ">
               <div className="flex-grow border-t border-gray-300"></div>
               <span className="flex-shrink mx-4 text-gray-500">or</span>
               <div className="flex-grow border-t border-gray-300"></div>
