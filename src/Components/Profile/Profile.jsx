@@ -19,11 +19,7 @@ const Profile = () => {
     }
 
     // Function to format timestamp to a readable date
-    const formatTimestamp = (timestamp) => {
-        if (!timestamp) return 'N/A';
-        const date = new Date(parseInt(timestamp));
-        return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-    };
+   
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
